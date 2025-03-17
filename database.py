@@ -1,11 +1,16 @@
+from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
+import os
 
+# ✅ Load environment variables securely
+load_dotenv()
+database_uri = os.getenv("DATABASE_URI")
 # ✅ SQLAlchemy Base Model (Used for ORM Mappings)
 Base = declarative_base()
 
 # ✅ Database Connection URL (Ensure correct credentials & DB exists)
-DATABASE_URL = "mysql+asyncmy://root@localhost/fastapi_db"
+DATABASE_URL = database_uri
 
 # ✅ Create an Async Engine (Asynchronous MySQL Connection)
 engine = create_async_engine(DATABASE_URL, echo=True)
